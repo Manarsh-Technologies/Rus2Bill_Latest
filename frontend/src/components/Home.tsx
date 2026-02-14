@@ -121,30 +121,30 @@ const Home = () => {
 
     return (
         <div className="home-wrapper">
-             <nav className="navbar navbar-expand-md navbar-light fixed-top bg-light">
+             <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light">
                 <div className="container">
-                    <a className="navbar-brand d-none-small" href="index.html"><img src="images/logo.svg" alt="RUS2Bill" /></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <img src="images/logo.svg" alt="icon" />
+                    <a className="navbar-brand" href="index.html"><img src="images/logo.svg" alt="RUS2Bill" /></a>
+                    <button className="navbar-toggler" type="button" onClick={() => setIsMobileNavOpen(!isMobileNavOpen)} aria-controls="navbarCollapse" aria-expanded={isMobileNavOpen} aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse " id="navbarCollapse">
-                        <ul className="navbar-nav ms-auto mb-2 mb-md-0">
+                    <div className={`collapse navbar-collapse ${isMobileNavOpen ? 'show' : ''}`} id="navbarCollapse">
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#work-structure">Work Structure</a>
+                                <a className="nav-link" aria-current="page" href="#work-structure" onClick={() => setIsMobileNavOpen(false)}>Work Structure</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#product-features">Product Features</a>
+                                <a className="nav-link" href="#product-features" onClick={() => setIsMobileNavOpen(false)}>Product Features</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#free-demo">FREE Demo</a>
+                                <a className="nav-link" href="#free-demo" onClick={() => setIsMobileNavOpen(false)}>FREE Demo</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="faqs.html">FAQs</a>
+                                <a className="nav-link" href="faqs.html" onClick={() => setIsMobileNavOpen(false)}>FAQs</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#free-demo" onClick={() => setIsMobileNavOpen(false)}>Contact</a>
                             </li>
                         </ul>
-                    </div>
-                    <div className="mob-login">
-                        <a className="btn btn-login" href="login.html">Login / Sign Up</a>
                     </div>
                 </div>
             </nav>
@@ -157,7 +157,7 @@ const Home = () => {
                                 <div className="col-md-6">
                                     <div className="banner-caption">
                                         <h1>Easy real time monitoring of construction workflow</h1>
-                                        <p>RUS2Bill Supports Rapid Invoicing of Construction Projects with improved accuracy by allowing for real-time recording Field Progress.</p>
+                                        <p>RUS2BILL Supports Rapid Invoicing of Construction Projects with improved accuracy by allowing for real time recording of Field Progress.</p>
                                         <a href="#free-demo" className="btn btn-green">Schedule a FREE Demo</a>
                                     </div>
                                 </div>
