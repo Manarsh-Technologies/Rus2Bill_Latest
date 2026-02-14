@@ -6,7 +6,7 @@ import './Home.css';
 const Home = () => {
     const [activeTab, setActiveTab] = useState('field');
     const [activeSlide, setActiveSlide] = useState(0);
-    const [activeAccordion, setActiveAccordion] = useState<string | null>('1');
+    // const [activeAccordion, setActiveAccordion] = useState<string | null>('1');
     const [isContactFormVisible, setIsContactFormVisible] = useState(false);
     const [isScheduleDemoVisible, setIsScheduleDemoVisible] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -63,9 +63,9 @@ const Home = () => {
         setIsSliderNavOpen(false); // Close slider dropdown on mobile
     };
 
-    const toggleAccordion = (id: string) => {
-        setActiveAccordion(activeAccordion === id ? null : id);
-    };
+    // const toggleAccordion = (id: string) => {
+    //     setActiveAccordion(activeAccordion === id ? null : id);
+    // };
 
     const tabsData: any = {
         field: {
