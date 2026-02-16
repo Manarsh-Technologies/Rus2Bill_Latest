@@ -1,11 +1,13 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import './Home.css';
+import ProgressStepper from './ProgressStepper';
 
 const Home = () => {
     const [activeTab, setActiveTab] = useState('field');
     const [activeSlide, setActiveSlide] = useState(0);
+    const stepperRef = useRef<HTMLDivElement>(null);
     // const [activeAccordion, setActiveAccordion] = useState<string | null>('1');
     const [isContactFormVisible, setIsContactFormVisible] = useState(false);
     const [isScheduleDemoVisible, setIsScheduleDemoVisible] = useState(false);
@@ -14,25 +16,7 @@ const Home = () => {
     const [activeTestimonial, setActiveTestimonial] = useState(0);
     const [activeUserBox, setActiveUserBox] = useState(0);
     const [activeFeatureBox, setActiveFeatureBox] = useState(0);
-    const stepperRef = useRef<HTMLDivElement>(null);
 
-    // Auto-scroll logic for mobile stepper
-    useEffect(() => {
-        if (stepperRef.current && window.innerWidth <= 767) {
-            const activeButton = stepperRef.current.children[activeSlide] as HTMLElement;
-            if (activeButton) {
-                const containerWidth = stepperRef.current.offsetWidth;
-                const buttonOffset = activeButton.offsetLeft;
-                const buttonWidth = activeButton.offsetWidth;
-                
-                // Center the active button
-                stepperRef.current.scrollTo({
-                    left: buttonOffset - (containerWidth / 2) + (buttonWidth / 2),
-                    behavior: 'smooth'
-                });
-            }
-        }
-    }, [activeSlide]);
 
 
     const testimonials = [
@@ -42,9 +26,9 @@ const Home = () => {
             role: "Construction company owner"
         },
         {
-            text: "“The different roles do allow for strong collaboration on real-time progress and to have a lot of the pieces of a construction project in one place. RUS2BILL gives the opportunity to my field workers to feel more in charge of their role with real-time reporting.”",
-            author: "Mike",
-            role: "Construction company owner"
+            text: "“This is an app aimed at construction professionals and provides a thorough means of managing multiple projects across multiple people and teams including field users, admins, and inspectors”",
+            author: "Karl Naso",
+            role: "Contruction Manager"
         }
     ];
 
@@ -126,25 +110,25 @@ const Home = () => {
                 {
                     title: 'Identify Project',
                     desc: 'Select your project, sheet, and inspection location to begin.',
-                    img: 'images/amtslides-v1/fielduser/step_1.png',
+                    img: 'images/amtslides-v1/inspector/2-Inspector-Audit-Flow-Inspection-Location.png',
                     fullDesc: 'Select your project, sheet, and inspection location to begin.'
                 },
                 {
                     title: 'Choose Units for Inspection',
                     desc: 'Choose the project, sheet, and units that require inspection.',
-                    img: 'images/amtslides-v1/fielduser/step_2.png',
+                    img: 'images/amtslides-v1/inspector/3-Inspector-Audit-Flow-Inspect-Location.png',
                     fullDesc: 'Choose the project, sheet, and units that require inspection.'
                 },
                 {
                     title: 'Inspect & Verify',
                     desc: 'Answer checklist questions, review work quality, and capture proof photos on-site.',
-                    img: 'images/amtslides-v1/fielduser/step_3.png',    
+                    img: 'images/amtslides-v1/inspector/5-Inspector-Audit-Flow-Signature _Upload-Final-Photo.png',    
                     fullDesc: 'Answer checklist questions, review work quality, and capture proof photos on-site.'
                 },
                 {
                     title: 'Submit Inspection',
                     desc: 'Sign off and submit the inspection report instantly.',
-                    img: 'images/amtslides-v1/fielduser/step_4.png',
+                    img: 'images/amtslides-v1/inspector/6-Inspector-Audit-Flow-Final-Submission.png',
                     fullDesc: 'Sign off and submit the inspection report instantly.'
                 }
             ]
@@ -250,71 +234,100 @@ const Home = () => {
                                             <div className="amtslide-box">
                                                 <div className="testi-fix">
                                                     <div className="carousel slide">
-                                                        <div className="row">
-                                                            <div className="col-lg-4 col-md-3">
-                                                                 <div 
-                                                                    ref={stepperRef}
-                                                                    className={`carousel-sldem thumbindias ${activeTab === 'field' ? 'filedid' : activeTab === 'audit' ? 'safteyid' : 'inspectid'}`}
-                                                                >
-                                                                    {currentTabContent.slides.map((slide:any, index:number) => (
-                                                                        <button 
-                                                                            key={index} 
-                                                                            type="button" 
-                                                                            className={`${activeSlide === index ? 'active currentbtn' : ''} ${index < activeSlide ? 'completed' : ''}`}
-                                                                            onClick={() => setActiveSlide(index)}
-                                                                        >
-                                                                            <span className="sll-t1">{slide.title}</span> 
-                                                                            <span className="sll-desc">{slide.desc}</span> 
-                                                                        </button>
-                                                                    ))}
+                                                        {/* MOBILE VIEW (New Horizontal Stepper) */}
+                                                        <div className="d-md-none">
+                                                            <div className="flex flex-col items-center">
+                                                                <div className="w-full mb-8">
+                                                                    <ProgressStepper 
+                                                                        steps={currentTabContent.slides.map((s: any) => s.title)}
+                                                                        currentStep={activeSlide}
+                                                                        onStepClick={(index) => setActiveSlide(index)}
+                                                                    />
                                                                 </div>
-                                                            </div>
-                                                            <div className="col-lg-8 col-md-9">
-                                                                <div className="carousel-inner">
-                                                                    <div className="carousel-item active">
-                                                                        <div className="asr-caption">
-                                                                            <div className="row">
-                                                                                <div className="col-lg-12">
-                                                                                    <div className="sld-body">
-                                                                                        <span className="indesc dskhide">{currentTabContent.slides[activeSlide]?.fullDesc}</span> 
-                                                                                        <img src={currentTabContent.slides[activeSlide]?.img} alt={currentTabContent.slides[activeSlide]?.title} />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                <div className="w-full">
+                                                                    <div className="sld-body text-center">
+                                                                        <p className="text-lg text-gray-700 mb-6 px-4">
+                                                                            {currentTabContent.slides[activeSlide]?.fullDesc}
+                                                                        </p>
+                                                                        <div className="bg-white p-3 rounded-3xl shadow-lg inline-block overflow-hidden max-w-[90%]">
+                                                                            <img 
+                                                                                src={currentTabContent.slides[activeSlide]?.img} 
+                                                                                alt={currentTabContent.slides[activeSlide]?.title} 
+                                                                                className="w-full h-auto object-contain rounded-2xl"
+                                                                            />
                                                                         </div>
                                                                     </div>
-                                                                    
-                                                                    <button 
-                                                                        className="arrowOut1 arr-lft1" 
-                                                                        type="button"
-                                                                        onClick={prevSlide}
-                                                                        style={{ display: activeSlide === 0 ? 'none' : 'flex' }}
-                                                                    >
-                                                                        <i className="fa fa-caret-left"></i>
-                                                                        <span className="visually-hidden">Previous</span>
-                                                                    </button>
-                                                                    <button 
-                                                                        className="arrowOut1 arr-rgt1" 
-                                                                        type="button"
-                                                                        onClick={nextSlide}
-                                                                        style={{ display: activeSlide === currentTabContent.slides.length - 1 ? 'none' : 'flex' }}
-                                                                    >
-                                                                        <i className="fa fa-caret-right"></i>
-                                                                        <span className="visually-hidden">Next</span>
-                                                                    </button>  
-                                                                </div>
-                                                                <div className="carousel-indicators">
-                                                                    {currentTabContent.slides.map((_:any, index:number) => (
-                                                                        <button 
-                                                                            key={index}
-                                                                            type="button" 
-                                                                            className={activeSlide === index ? 'active' : ''} 
-                                                                            onClick={() => setActiveSlide(index)}
-                                                                        ></button>
-                                                                    ))}
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        {/* DESKTOP VIEW (Original Vertical Stepper) */}
+                                                        <div className="d-none d-md-block">
+                                                            <div className="row">
+                                                                <div className="col-lg-4 col-md-5">
+                                                                    <div 
+                                                                        ref={stepperRef}
+                                                                        className={`carousel-sldem thumbindias ${activeTab === 'field' ? 'filedid' : activeTab === 'audit' ? 'safteyid' : 'inspectid'}`}
+                                                                    >
+                                                                        {currentTabContent.slides.map((slide:any, index:number) => (
+                                                                            <button 
+                                                                                key={index} 
+                                                                                type="button" 
+                                                                                className={`${activeSlide === index ? 'active currentbtn' : ''} ${index < activeSlide ? 'completed' : ''}`}
+                                                                                onClick={() => setActiveSlide(index)}
+                                                                            >
+                                                                                <span className="sll-t1">{slide.title}</span> 
+                                                                                <span className="sll-desc">{slide.desc}</span> 
+                                                                            </button>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-lg-8 col-md-7">
+                                                                    <div className="carousel-inner">
+                                                                        <div className="carousel-item active">
+                                                                            <div className="asr-caption">
+                                                                                <div className="sld-body text-center">
+                                                                                    <img 
+                                                                                        src={currentTabContent.slides[activeSlide]?.img} 
+                                                                                        alt={currentTabContent.slides[activeSlide]?.title} 
+                                                                                        className="max-h-[500px] object-contain"
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <button 
+                                                                            className="arrowOut1 arr-lft1" 
+                                                                            type="button"
+                                                                            onClick={prevSlide}
+                                                                            style={{ display: activeSlide === 0 ? 'none' : 'flex' }}
+                                                                        >
+                                                                            <i className="fa fa-caret-left"></i>
+                                                                            <span className="visually-hidden">Previous</span>
+                                                                        </button>
+                                                                        <button 
+                                                                            className="arrowOut1 arr-rgt1" 
+                                                                            type="button"
+                                                                            onClick={nextSlide}
+                                                                            style={{ display: activeSlide === currentTabContent.slides.length - 1 ? 'none' : 'flex' }}
+                                                                        >
+                                                                            <i className="fa fa-caret-right"></i>
+                                                                            <span className="visually-hidden">Next</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="carousel-indicators">
+                                                        {currentTabContent.slides.map((_:any, index:number) => (
+                                                            <button 
+                                                                key={index}
+                                                                type="button" 
+                                                                className={activeSlide === index ? 'active' : ''} 
+                                                                onClick={() => setActiveSlide(index)}
+                                                            ></button>
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1020,7 +1033,7 @@ const Home = () => {
                                     <div className="foot-social mb-5 mt-2 hide-desk">
                                         <a href="https://www.instagram.com/rus2bill/" target="_blank" rel="noreferrer"><img src="images/Insta-footer.svg" alt="Insta-footer" className="sc-ft" /></a>
                                         <a href="https://www.linkedin.com/company/rus2bill/" target="_blank" rel="noreferrer"><img src="images/Linkedin-Footer.svg" alt="Linkedin-Footer" className="sc-ft" /></a>
-                                        <img src="images/call.svg" alt="Insta-footer" className="sc-ft" /><a href="tel:+1(440) 904-6496" className="ft-call">+1 (440) 904-6496</a>
+                                        <img src="images/call.svg" alt="Insta-footer" className="sc-ft" /><a href="tel:+1(214)983-6686" className="ft-call">+1 (214) 983-6686</a>
                                     </div>
                                     <img src="images/Rus2bill-logo-drkbg.svg" alt="footer-logo" className="mb-3 footer-logo" />
                                     <h4 className="mb-4 hide-mob">&copy; RUS2BILL is a registered trademark</h4>
@@ -1030,13 +1043,13 @@ const Home = () => {
                                     <div className="foot-social hide-mob">
                                         <a href="https://www.instagram.com/rus2bill/" target="_blank" rel="noreferrer"><img src="images/Insta-footer.svg" alt="Insta-footer" className="sc-ft" /></a>
                                         <a href="https://www.linkedin.com/company/rus2bill/" target="_blank" rel="noreferrer"><img src="images/Linkedin-Footer.svg" alt="Linkedin-Footer" className="sc-ft" /></a>
-                                        <img src="images/call.svg" alt="Insta-footer" className="sc-ft" /><a href="tel:+1(440) 904-6496" className="ft-call">+1 (440) 904-6496</a>
+                                        <img src="images/call.svg" alt="Insta-footer" className="sc-ft" /><a href="tel:+1(214)983-6686" className="ft-call">+1 (214) 983-6686</a>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-4">
                                 <div className="foot-right">
-                                    <p>We strive to make our website content accessible and user-friendly. If you are having difficulty viewing the content on this website or navigating the site, please contact our Customer Service Team via hello@rus2bill.com we will be happy to assist you.</p>
+                                    <p>We strive to make our website content accessible and user-friendly. If you are having difficulty viewing the content on this website or navigating the site, please contact our Customer Service Team via wajih@rus2bill.com we will be happy to assist you.</p>
                                     <div className="ft-list">
                                         <ul>
                                             <li> <a href="privacy.html"  >Privacy </a></li>
