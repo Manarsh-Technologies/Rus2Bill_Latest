@@ -28,13 +28,20 @@ const ProgressStepper: React.FC<ProgressStepperProps> = ({ steps, currentStep, o
       <div className="min-w-[600px] md:min-w-full relative px-10">
         <div className="relative flex items-center justify-between w-full">
           {/* Progress Line Background */}
-          <div className="absolute top-[11px] left-0 w-full h-[2.5px] bg-gray-100 rounded-full" />
+          <div 
+            className="absolute top-[11px] h-[2.5px] bg-gray-100 rounded-full" 
+            style={{ 
+              left: `${50 / steps.length}%`,
+              right: `${50 / steps.length}%`
+            }}
+          />
           
           {/* Fill Progressive Line */}
           <div 
-            className="absolute top-[11px] left-0 h-[2.5px] bg-[#16a34a] rounded-full transition-all duration-700 ease-in-out shadow-[0_0_5px_rgba(22,163,74,0.3)]"
+            className="absolute top-[11px] h-[2.5px] bg-[#16a34a] rounded-full transition-all duration-700 ease-in-out shadow-[0_0_5px_rgba(22,163,74,0.3)]"
             style={{ 
-              width: `${(currentStep / (steps.length - 1)) * 100}%` 
+                left: `${50 / steps.length}%`,
+                width: `${(currentStep * (100 / steps.length))}%` 
             }}
           />
 

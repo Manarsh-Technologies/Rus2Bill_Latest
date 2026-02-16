@@ -246,14 +246,14 @@ const Home = () => {
                                                                 </div>
                                                                 <div className="w-full">
                                                                     <div className="sld-body text-center">
-                                                                        <p className="text-lg text-gray-700 mb-6 px-4">
+                                                                        <p className="text-lg text-gray-700 mb-6">
                                                                             {currentTabContent.slides[activeSlide]?.fullDesc}
                                                                         </p>
-                                                                        <div className="bg-white p-3 rounded-3xl shadow-lg inline-block overflow-hidden max-w-[90%]">
+                                                                        <div className="inline-block max-w-full">
                                                                             <img 
                                                                                 src={currentTabContent.slides[activeSlide]?.img} 
                                                                                 alt={currentTabContent.slides[activeSlide]?.title} 
-                                                                                className="w-full h-auto object-contain rounded-2xl"
+                                                                                className="w-full h-auto object-contain"
                                                                             />
                                                                         </div>
                                                                     </div>
