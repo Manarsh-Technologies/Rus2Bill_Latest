@@ -24,7 +24,7 @@ const ProgressStepper: React.FC<ProgressStepperProps> = ({ steps, currentStep, o
   }, [currentStep]);
 
   return (
-    <div ref={containerRef} className="w-full py-4 overflow-x-auto no-scrollbar scroll-smooth">
+    <div ref={containerRef} className="w-full pt-4 overflow-x-auto no-scrollbar scroll-smooth">
       <div className="min-w-[600px] md:min-w-full relative px-10">
         <div className="relative flex items-center justify-between w-full">
           {/* Progress Line Background */}

@@ -2453,7 +2453,9 @@ a.ft-call {
   
 .amsldie-pill .nav-link {
    font: normal normal 400 14px/30px Niveau Grotesk;
-  
+}
+.amsldie-pill .nav-link.active:after {
+   display: none !important;
 }
 
 .carousel-sldem { 
