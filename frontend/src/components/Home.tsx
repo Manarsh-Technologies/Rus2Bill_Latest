@@ -1,6 +1,6 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import './Home.css';
 import ProgressStepper from './ProgressStepper';
 
@@ -33,11 +33,33 @@ const Home = () => {
     ];
 
     const nextTestimonial = () => {
-        setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+        const next = (activeTestimonial + 1) % testimonials.length;
+        const element = document.getElementById(`testimonial-box-${next}`);
+        if (element) {
+            const container = element.parentElement?.parentElement;
+            if (container) {
+                container.scrollTo({
+                    left: element.offsetLeft,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        setActiveTestimonial(next);
     };
 
     const prevTestimonial = () => {
-        setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        const prev = (activeTestimonial - 1 + testimonials.length) % testimonials.length;
+        const element = document.getElementById(`testimonial-box-${prev}`);
+        if (element) {
+            const container = element.parentElement?.parentElement;
+            if (container) {
+                container.scrollTo({
+                    left: element.offsetLeft,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        setActiveTestimonial(prev);
     };
 
     const handleTabChange = (tab: string) => {
@@ -833,7 +855,6 @@ const Home = () => {
                         </div>
                     </div>
                 
-                 {/* Testimonial Section */}
                     <div className="testimonial-section pd-80" id="testimonials">
                         <div className="container">
                              <div className="text-center mb-5">
@@ -845,14 +866,28 @@ const Home = () => {
                                     <i className="fa fa-chevron-left"></i>
                                 </button>
                                 
-                                <div className="testimonial-card-dark">
-                                    <div className="quote-icon-top">
-                                        <i className="fa fa-quote-left"></i>
+                                <div className="testimonial-slider-container" onScroll={(e) => {
+                                    const target = e.target as HTMLDivElement;
+                                    const scrollLeft = target.scrollLeft;
+                                    const itemWidth = target.offsetWidth;
+                                    const newActive = Math.round(scrollLeft / itemWidth);
+                                    if (newActive !== activeTestimonial && newActive >= 0 && newActive < testimonials.length) {
+                                        setActiveTestimonial(newActive);
+                                    }
+                                }}>
+                                    <div className="testimonial-row">
+                                        {testimonials.map((testi, index) => (
+                                            <div key={index} className={`testimonial-card-dark ${index === activeTestimonial ? 'active' : ''}`} id={`testimonial-box-${index}`}>
+                                                <div className="quote-icon-top">
+                                                    <i className="fa fa-quote-left"></i>
+                                                </div>
+                                                <p className="testi-text">
+                                                    {testi.text}
+                                                </p>
+                                                <h6 className="testi-author">– {testi.author} | {testi.role}</h6>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <p className="testi-text">
-                                        {testimonials[activeTestimonial].text}
-                                    </p>
-                                    <h6 className="testi-author">– {testimonials[activeTestimonial].author} | {testimonials[activeTestimonial].role}</h6>
                                 </div>
                                 
                                 <button className="nav-arrow-btn" onClick={nextTestimonial}>
@@ -865,7 +900,20 @@ const Home = () => {
                                      <span 
                                          key={index} 
                                          className={`dot ${index === activeTestimonial ? 'active' : ''}`}
-                                         onClick={() => setActiveTestimonial(index)}
+                                         onClick={() => {
+                                            const element = document.getElementById(`testimonial-box-${index}`);
+                                            if (element) {
+                                                const container = element.parentElement?.parentElement;
+                                                if (container) {
+                                                    const offset = element.offsetLeft;
+                                                    container.scrollTo({
+                                                        left: offset,
+                                                        behavior: 'smooth'
+                                                    });
+                                                    setActiveTestimonial(index);
+                                                }
+                                            }
+                                         }}
                                      ></span>
                                  ))}
                              </div>

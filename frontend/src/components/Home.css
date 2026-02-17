@@ -276,7 +276,7 @@ a:focus {
 }
 
 
-.nav-link.active::after {
+.navbar .nav-link.active::after {
 	content: "";
 	width: 100%;
 	height: 4px;
@@ -2367,7 +2367,7 @@ a.ft-call {
  .amsldie-pill .nav-link.active {background-color: #fff;
   color: #04a349 !important;}
   
-  .amsldie-pill .nav-link.active:after {content:""; position:absolute; width:100%; height:2px; background:#00C371; left:0; right:0; bottom:0px; display:block;}
+  .amsldie-pill .nav-link.active::after {content:""; position:absolute; width:100%; height:4px; background:#00C371; left:0; right:0; bottom:0px; display:block;}
  
  .dskhide {display:none;}
  
@@ -2454,7 +2454,7 @@ a.ft-call {
 .amsldie-pill .nav-link {
    font: normal normal 400 14px/30px Niveau Grotesk;
 }
-.amsldie-pill .nav-link.active:after {
+.amsldie-pill .nav-link.active::after {
    display: none !important;
 }
 
@@ -2867,12 +2867,24 @@ a.ft-call {
     gap: 30px;
 }
 
+.testimonial-slider-container {
+    max-width: 700px;
+    width: 100%;
+    overflow: hidden; /* Desktop: hide overflow, scroll via JS */
+}
+
+.testimonial-row {
+    display: flex;
+    position: relative;
+}
+
 .testimonial-card-dark {
     background-color: #24231F;
     border-radius: 20px;
     padding: 60px 50px;
     color: #fff;
     text-align: center;
+    flex: 0 0 100%; /* Each card takes full width of container */
     max-width: 700px;
     width: 100%;
     position: relative;
@@ -2884,6 +2896,7 @@ a.ft-call {
     margin-bottom: 25px;
     display: inline-block;
 }
+
 .quote-icon-top i {
      color: #fff;
 }
@@ -2948,6 +2961,18 @@ a.ft-call {
         gap: 0;
         width: 100%;
     }
+    .testimonial-slider-container {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .testimonial-slider-container::-webkit-scrollbar {
+        display: none;
+    }
+    .testimonial-row {
+        gap: 0;
+    }
     .nav-arrow-btn {
         display: none; /* Hide arrows on mobile */
     }
@@ -2955,6 +2980,7 @@ a.ft-call {
         padding: 40px 25px;
         max-width: 100%;
         border-radius: 15px;
+        scroll-snap-align: center;
     }
     .testi-text {
         font-size: 16px; 
