@@ -16,6 +16,7 @@ const Home = () => {
     const [activeTestimonial, setActiveTestimonial] = useState(0);
     const [activeUserBox, setActiveUserBox] = useState(0);
     const [activeFeatureBox, setActiveFeatureBox] = useState(0);
+    const mobileSliderRef = useRef<HTMLDivElement>(null);
 
 
 
@@ -67,6 +68,9 @@ const Home = () => {
         setActiveSlide(0);
         setIsMobileNavOpen(false); // Close mobile nav if open
         setIsSliderNavOpen(false); // Close slider dropdown on mobile
+        if (mobileSliderRef.current) {
+            mobileSliderRef.current.scrollLeft = 0;
+        }
     };
 
     // const toggleAccordion = (id: string) => {
@@ -161,13 +165,27 @@ const Home = () => {
 
     const nextSlide = () => {
         if (currentTabContent && activeSlide < currentTabContent.slides.length - 1) {
-            setActiveSlide(prev => prev + 1);
+            const nextIdx = activeSlide + 1;
+            setActiveSlide(nextIdx);
+            if (mobileSliderRef.current) {
+                mobileSliderRef.current.scrollTo({
+                    left: nextIdx * mobileSliderRef.current.offsetWidth,
+                    behavior: 'smooth'
+                });
+            }
         }
     };
 
     const prevSlide = () => {
         if (activeSlide > 0) {
-            setActiveSlide(prev => prev - 1);
+            const prevIdx = activeSlide - 1;
+            setActiveSlide(prevIdx);
+            if (mobileSliderRef.current) {
+                mobileSliderRef.current.scrollTo({
+                    left: prevIdx * mobileSliderRef.current.offsetWidth,
+                    behavior: 'smooth'
+                });
+            }
         }
     };
 
@@ -263,22 +281,46 @@ const Home = () => {
                                                                     <ProgressStepper 
                                                                         steps={currentTabContent.slides.map((s: any) => s.title)}
                                                                         currentStep={activeSlide}
-                                                                        onStepClick={(index) => setActiveSlide(index)}
+                                                                        onStepClick={(index) => {
+                                                                            setActiveSlide(index);
+                                                                            if (mobileSliderRef.current) {
+                                                                                mobileSliderRef.current.scrollTo({
+                                                                                    left: index * mobileSliderRef.current.offsetWidth,
+                                                                                    behavior: 'smooth'
+                                                                                });
+                                                                            }
+                                                                        }}
                                                                     />
                                                                 </div>
-                                                                <div className="w-full">
-                                                                    <div className="sld-body text-center">
-                                                                        <p className="text-lg text-gray-700 mb-6">
-                                                                            {currentTabContent.slides[activeSlide]?.fullDesc}
-                                                                        </p>
-                                                                        <div className="inline-block max-w-full">
-                                                                            <img 
-                                                                                src={currentTabContent.slides[activeSlide]?.img} 
-                                                                                alt={currentTabContent.slides[activeSlide]?.title} 
-                                                                                className="w-full h-auto object-contain"
-                                                                            />
+                                                                <div 
+                                                                    className="w-full overflow-x-auto flex flex-nowrap snap-x snap-mandatory hide-scroll"
+                                                                    ref={mobileSliderRef}
+                                                                    onScroll={(e) => {
+                                                                        const target = e.currentTarget;
+                                                                        const scrollLeft = target.scrollLeft;
+                                                                        const width = target.offsetWidth;
+                                                                        const index = Math.round(scrollLeft / width);
+                                                                        if (index !== activeSlide && index >= 0 && index < currentTabContent.slides.length) {
+                                                                            setActiveSlide(index);
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    {currentTabContent.slides.map((slide: any, index: number) => (
+                                                                        <div key={index} className="w-full flex-shrink-0 snap-center px-2">
+                                                                            <div className="sld-body text-center">
+                                                                                <p className="text-lg text-gray-700 mb-6">
+                                                                                    {slide.fullDesc}
+                                                                                </p>
+                                                                                <div className="inline-block max-w-full">
+                                                                                    <img 
+                                                                                        src={slide.img} 
+                                                                                        alt={slide.title} 
+                                                                                        className="w-full h-auto object-contain"
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                    ))}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1086,7 +1128,7 @@ const Home = () => {
                                     <img src="images/Rus2bill-logo-drkbg.svg" alt="footer-logo" className="mb-3 footer-logo" />
                                     <h4 className="mb-4 hide-mob">&copy; RUS2BILL is a registered trademark</h4>
                                     <div className="copy-mobile">
-                                        <p>&copy;2023 RUS2BILL</p>
+                                        <p>&copy;2026 RUS2BILL</p>
                                     </div>
                                     <div className="foot-social hide-mob">
                                         <a href="https://www.instagram.com/rus2bill/" target="_blank" rel="noreferrer"><img src="images/Insta-footer.svg" alt="Insta-footer" className="sc-ft" /></a>
