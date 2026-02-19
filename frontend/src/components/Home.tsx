@@ -136,25 +136,25 @@ const Home = () => {
                 {
                     title: 'Identify Project',
                     desc: 'Select your project, sheet, and inspection location to begin.',
-                    img: 'images/amtslides-v1/inspector/2-Inspector-Audit-Flow-Inspection-Location.png',
+                    img: 'images/amtslides-v1/fielduser/step_1.png',
                     fullDesc: 'Select your project, sheet, and inspection location to begin.'
                 },
                 {
                     title: 'Choose Units for Inspection',
                     desc: 'Choose the project, sheet, and units that require inspection.',
-                    img: 'images/amtslides-v1/inspector/3-Inspector-Audit-Flow-Inspect-Location.png',
+                    img: 'images/amtslides-v1/fielduser/step_2.png',
                     fullDesc: 'Choose the project, sheet, and units that require inspection.'
                 },
                 {
                     title: 'Inspect & Verify',
                     desc: 'Answer checklist questions, review work quality, and capture proof photos on-site.',
-                    img: 'images/amtslides-v1/inspector/5-Inspector-Audit-Flow-Signature _Upload-Final-Photo.png',    
+                    img: 'images/amtslides-v1/inspector/inspector_step3.png',
                     fullDesc: 'Answer checklist questions, review work quality, and capture proof photos on-site.'
                 },
                 {
                     title: 'Submit Inspection',
                     desc: 'Sign off and submit the inspection report instantly.',
-                    img: 'images/amtslides-v1/inspector/6-Inspector-Audit-Flow-Final-Submission.png',
+                    img: 'images/amtslides-v1/inspector/inspector_step4.png',
                     fullDesc: 'Sign off and submit the inspection report instantly.'
                 }
             ]
