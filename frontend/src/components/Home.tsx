@@ -142,7 +142,7 @@ const Home = () => {
                 {
                     title: 'Choose Units for Inspection',
                     desc: 'Choose the project, sheet, and units that require inspection.',
-                    img: 'images/amtslides-v1/fielduser/step_2.png',
+                    img: 'images/amtslides-v1/inspector/inspector_step2.png',
                     fullDesc: 'Choose the project, sheet, and units that require inspection.'
                 },
                 {
