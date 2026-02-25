@@ -113,19 +113,19 @@ const Home = () => {
                 {
                     title: 'Dashboard',
                     desc: 'Review project status & issues to address',
-                    img: 'images/amtslides/admin/1-Admin-App-Flow-dashboard.png',
+                    img: 'images/amtslides-v1/admin/1-Admin-App-Flow-dashboard.png',
                     fullDesc: 'Review project status & issues to address.'
                 },
                 {
                     title: 'Project Details & Job Details',
                     desc: 'Add new project or review project details and address project issues.',
-                    img: 'images/amtslides/admin/2-Admin-App-Flow-project-and-job-details.png',
+                    img: 'images/amtslides-v1/admin/2-Admin-App-Flow-project-and-job-details.png',
                     fullDesc: 'Add new project or review project details and address project issues.'
                 },
                 {
                     title: 'Create Reports',
                     desc: 'Export custom reports about status, finances, and quality.',
-                    img: 'images/amtslides/admin/3-Admin-App-Flow-create-reports.png',
+                    img: 'images/amtslides-v1/admin/3-Admin-App-Flow-create-reports.png',
                     fullDesc: 'Export custom reports about status, finances, and quality.'
                 }
             ]
